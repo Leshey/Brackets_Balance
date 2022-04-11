@@ -19,12 +19,12 @@ public static class Program
 
     public class UserInput 
     {
-        public string? GetUserInput() 
+        public string GetUserInput() 
         {
             return Console.ReadLine();
         }
 
-        public char[] UserInputToArray(string? userInput) 
+        public char[] UserInputToArray(string userInput) 
         {
             char[] arr = new char[userInput.Length];
             for (int i = 0; i < userInput.Length; i++) 
@@ -37,10 +37,10 @@ public static class Program
 
     public class BracketsCheck
     {
-        private Tokens token;
+        private Tokens _token;
         public BracketsCheck(int length)
         {
-            token = new Tokens(length);
+            _token = new Tokens(length);
         }
 
         public void CheckForPairs(char[] arr) 
@@ -62,8 +62,8 @@ public static class Program
                         }
                         else if (arr[j] == ')' && openBracketsCounter == 0)
                         {
-                            token.PlaceToken(indexOfOpenBracket);
-                            token.PlaceToken(j);
+                            _token.PlaceToken(indexOfOpenBracket);
+                            _token.PlaceToken(j);
                             break;
                         }
                     }
@@ -74,7 +74,7 @@ public static class Program
         public void CheckBracketBalance(char[] arr)
         {
             CheckForPairs(arr);
-            if (token.CalcSumOfTokens() == arr.Length)
+            if (_token.CalcSumOfTokens() == arr.Length)
             {
                 Console.WriteLine("You achieved perfect balance of brackets!");
             }
@@ -87,9 +87,9 @@ public static class Program
 
         public void PrintIndexesOfPairlessBrackets() 
         {
-            for (int i = 0; i < token.GetLength(); i++) 
+            for (int i = 0; i < _token.GetLength(); i++) 
             {
-                if (token.GetTokenState(i) == 0) 
+                if (_token.GetTokenState(i) == 0) 
                 {
                     Console.WriteLine($"Bracket with index [{i}] is pairless");
                 }
@@ -104,11 +104,6 @@ public static class Program
         public Tokens(int length)
         {
             _tokensArr = new int[length];
-        }
-        
-        public int[] CreateArrForTokens(int arrLength)
-        {
-            return _tokensArr = new int[arrLength];
         }
 
         public void PlaceToken(int index) 
